@@ -13,5 +13,6 @@ namespace Reddit.Services
         public List<Topic> ReadTopics();
         public void Edit(int postId, string title, string url);
         public void Delete(int postId);
+        public void AddTopic(string topic);
     }
 }

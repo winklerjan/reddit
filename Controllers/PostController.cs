@@ -96,5 +96,21 @@ namespace Reddit.Controllers
             postService.Delete(postId);
             return RedirectToAction("profile", "user", new { UserId = userId });
         }
+
+        [HttpPost("addtopic")]
+        public IActionResult AddTopic([FromQuery] string topic)
+        {
+            if (topic == null)
+            {
+                return BadRequest(new { error = "not a valid topic" });
+
+            }
+            postService.AddTopic(topic);
+            return Ok(new { confirmation = "topic successfully added" });
+
+
+
+        }
+
     }
 }

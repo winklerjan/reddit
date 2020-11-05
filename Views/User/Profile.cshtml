@@ -29,7 +29,14 @@
     {
 <tr>
     <td><a href="@post.Url" target="_blank"> @post.Title</a></td>
-    <td>@post.Topic.Name</td>
+    @if (post.Topic != null)
+    {
+        <td>@post.Topic.Name</td>
+    }
+    else
+    {
+        <td>No topic</td>
+    }
     <td>@post.Created</td>
     <td><a asp-controller="post" asp-action="edit" asp-route-postId="@post.ID" asp-route-userId="@Model.User.Id"> EDIT </a></td>
     <td><a asp-controller="post" asp-action="delete" asp-route-postId="@post.ID" asp-route-userId="@Model.User.Id"> DELETE </a></td>

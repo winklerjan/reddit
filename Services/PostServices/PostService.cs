@@ -83,5 +83,11 @@ namespace Reddit.Services
             dbContext.Posts.Remove(ReadPostById(postId));
             dbContext.SaveChanges();
         }
+
+        public void AddTopic(string topic)
+        {
+            dbContext.Topics.Add(new Topic { Name = topic });
+            dbContext.SaveChanges();
+        }
     }
 }
