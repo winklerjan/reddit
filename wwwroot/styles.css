@@ -1,0 +1,12 @@
+﻿body {
+   background-color: black;
+   color:white;
+}
+
+a {
+    color: lightpink;
+}
+
+.list_tasks td {
+    min-width: 50px;
+}

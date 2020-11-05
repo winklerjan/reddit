@@ -1,0 +1,24 @@
+﻿
+@model Reddit.ViewModels.IndexViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>The Reddit App: @ViewBag.Title</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+    @if (Model == null || Model.User == null)
+    {
+        <h1><a href="index">THE REDDIT APP</a> </h1>
+    }
+    else
+    {
+        <h1><a asp-controller="Post" asp-action="index" asp-route-userId="@Model.User.Id">THE REDDIT APP</a> </h1>
+    }
+
+    @RenderBody()
+</body>
+</html>

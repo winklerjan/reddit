@@ -1,0 +1,26 @@
+﻿
+@{ Layout = "_Layout";
+    ViewBag.Title = "Edit"; }
+
+    <h1>Edit a post</h1>
+<p>Warning! Editing a post will reset all the post votes!</p>
+    <form asp-controller="Post" asp-action="edit" asp-route-postId="@Model.Post.ID" asp-route-userId="@Model.User.Id" method="post">
+
+        <input type="text" name="title" placeholder="Enter title" value="@Model.Post.Title" required />
+        <input type="text" name="url" placeholder="Enter URL" value="@Model.Post.Url" required />
+        <select name="topicId">
+            @foreach (var topic in Model.Topics)
+            {
+                if (topic.Id == Model.Post.TopicID)
+                {
+                    <option value="@topic.Id" selected>@topic.Name</option>
+                }
+                else
+                {
+                    <option value="@topic.Id">@topic.Name</option>
+                }
+            }
+        </select>
+        <a asp-controller="User" asp-action="profile" asp-route-userId="@Model.User.Id">Cancel</a>
+        <button type="submit">Submit</button>
+    </form>

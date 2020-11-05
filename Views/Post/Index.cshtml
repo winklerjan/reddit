@@ -1,0 +1,87 @@
+﻿
+@{ Layout = "_Layout";
+    ViewBag.Title = "Home"; }
+
+@if (Model.User != null && Model.User.UserLogin == true && Model.Topics != null)
+{
+    <a asp-controller="User" asp-action="profile" asp-route-userId="@Model.User.Id">User profile</a>
+    <a asp-controller="User" asp-action="logout" asp-route-userId="@Model.User.Id">Log out</a>
+    <br />
+    <h3>Write a new post, @Model.User.Name!</h3>
+    <form asp-controller="Post" asp-action="submit" method="post">
+        <input type="hidden" name="userId" value="@Model.User.Id" />
+        <input type="text" name="title" placeholder="Enter title" required />
+        <input type="text" name="url" placeholder="Enter URL" required />
+        <select name="topicId">
+            @foreach (var topic in Model.Topics)
+            {
+                <option value="@topic.Id">@topic.Name</option>
+            }
+        </select>
+        <button type="submit">Write a new post!</button>
+    </form>
+}
+else
+{
+    <a href="login">Log In</a>
+    <a href="register">Register new user</a>
+}
+<br />
+
+
+@if (Model.Posts == null)
+{
+    <h4>There are no posts yet!</h4>
+}
+else
+{
+    <h2>Recent posts</h2>
+    <table class="list_tasks">
+        <thead>
+            <tr>
+                <th>Points</th>
+                @if (Model.User != null && Model.User.UserLogin == true)
+                {
+                    <th></th>
+                    <th></th>
+                }
+                <th>Title</th>
+                <th>OP</th>
+                <th>Topic</th>
+                <th>Created</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var post in Model.Posts)
+            {
+                <tr>
+                    <td>@post.Points</td>
+                    @if (Model.User != null && Model.User.UserLogin == true)
+                    {
+                        <td>
+                            @Html.ActionLink("[ + ]", "vote", "Post", new { postId = post.ID, userId = Model.User.Id, vote = "up" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("[ - ]", "vote", "Post", new { postId = post.ID, userId = Model.User.Id, vote = "down" })
+                        </td>
+                    }
+
+                    <td><a href="@post.Url" target="_blank">@post.Title</a></td>
+                    <td>@post.User?.Name</td>
+                    <td>@post.Topic?.Name</td>
+                    <td>@post.Created</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @if (Model.PageNum > 1)
+    {
+        <a asp-action="index" asp-controller="post" asp-route-pageNum="@Model.PageNum" asp-route-changePage="prev">Prev page</a>
+        <a asp-action="index" asp-controller="post" asp-route-pageNum="@Model.PageNum" asp-route-changePage="next">Next page</a>
+    }
+    else
+    {
+        <a asp-action="index" asp-controller="post" asp-route-pageNum="@Model.PageNum">Next page</a>
+    }
+
+}

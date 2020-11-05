@@ -1,0 +1,59 @@
+﻿
+
+@{ Layout = "_Layout";
+    ViewBag.Title = "User Profile";}
+
+
+<h2>User profile</h2>
+@if (Model.User == null || Model.User.UserLogin != true)
+{
+    <p>Please <a href="login">log in</a> or <a href="register">register</a> first!</p>
+}
+ else
+{
+<h3>
+    Welcome to your Reddit profile, @Model.User.Name!
+</h3>
+<a asp-controller="User" asp-action="logout" asp-route-userId="@Model.User.Id">Log out</a>
+
+@if (Model.User.Posts != null)
+{
+<h4>Your posts</h4>
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Topic</th>
+        <th>Created</th>
+    </tr>
+    @foreach (var post in Model.User.Posts)
+    {
+<tr>
+    <td><a href="@post.Url" target="_blank"> @post.Title</a></td>
+    <td>@post.Topic.Name</td>
+    <td>@post.Created</td>
+    <td><a asp-controller="post" asp-action="edit" asp-route-postId="@post.ID" asp-route-userId="@Model.User.Id"> EDIT </a></td>
+    <td><a asp-controller="post" asp-action="delete" asp-route-postId="@post.ID" asp-route-userId="@Model.User.Id"> DELETE </a></td>
+</tr>
+    }
+</table>
+}
+else
+{
+    <p>You have no posts yet...</p>
+}
+
+<br />  <h3>Write a new post!</h3>
+<form asp-controller="Post" asp-action="submit" method="post">
+    <input type="hidden" name="userId" value="@Model.User.Id" />
+    <input type="text" name="title" placeholder="Enter title" required />
+    <input type="text" name="url" placeholder="Enter URL" required />
+    <select name="topicId">
+        @*<option value="" selected disabled hidden required>Select topic</option>*@
+        @foreach (var topic in Model.Topics)
+        {
+            <option value="@topic.Id">@topic.Name</option>
+        }
+    </select>
+    <button type="submit">Write a new post!</button>
+</form>
+}

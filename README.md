@@ -1,1 +1,1 @@
-# reddit
+# heroku-reddit

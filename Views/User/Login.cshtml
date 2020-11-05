@@ -1,0 +1,11 @@
+﻿
+@{ Layout = "_Layout";
+    ViewBag.Title = "Login";}
+
+<h2>Login</h2>
+
+<form asp-controller="user" asp-action="login" method="post">
+    <input type="text" name="name" placeholder="Enter username" required/>
+    <input type="password" name="password" placeholder="Enter password" required/>
+    <button type="submit">LOG IN!</button>
+</form>
