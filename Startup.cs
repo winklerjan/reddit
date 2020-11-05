@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Reddit.Database;
 using Reddit.Services;
 using Reddit.Services.UserServices;
 
@@ -13,12 +12,10 @@ namespace Reddit
     public class Startup
     {
         private readonly IConfiguration configuration;
-        private readonly ApplicationDbContext applicationDbContext;
 
-        public Startup(IConfiguration configuration, ApplicationDbContext applicationDbContext)
+        public Startup(IConfiguration configuration)
         {
             this.configuration = configuration;
-            this.applicationDbContext = applicationDbContext;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -34,8 +31,6 @@ namespace Reddit
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            applicationDbContext.Database.Migrate();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
