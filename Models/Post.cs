@@ -13,7 +13,7 @@ namespace Reddit.Models
         public User User { get; set; }
         public int? UserID { get; set; }
         public Topic Topic { get; set; }
-        public int? TopicID { get; set; }
+        public int? TopicID { get; set; } = null;
         public long Points { get; set; }
 
         public Post()
@@ -21,7 +21,7 @@ namespace Reddit.Models
             Created = DateTime.Now;
         }
 
-        public Post(string title, string url, int userId, int topicId)
+        public Post(string title, string url, int userId, int? topicId)
         {
             Title = title;
             Url = url;

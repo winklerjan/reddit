@@ -7,7 +7,7 @@ namespace Reddit.Services
     {
         public List<Post> ReadAllPosts(int pageNum);
         public List<Post> ReadAllPostsByUserID(int userId);
-        public void Submit(string title, string url, int userId, int topicId);
+        public void Submit(string title, string url, int userId, int? topicId);
         public void Vote(int postId, string vote);
         public Post ReadPostById(int postId);
         public List<Topic> ReadTopics();

@@ -48,9 +48,17 @@ namespace Reddit.Controllers
         }
 
         [HttpPost("submit")]
-        public IActionResult Submit(string title, string url, int userId, int topicId)
+        public IActionResult Submit(string title, string url, int userId, int? topicId)
         {
-            postService.Submit(title, url, userId, topicId);
+            if (topicId.HasValue)
+            {
+                postService.Submit(title, url, userId, topicId.Value);
+            }
+            else
+            {
+                postService.Submit(title, url, userId, null);
+            }
+
 
             return RedirectToAction("index", new { UserId = userId });
         }

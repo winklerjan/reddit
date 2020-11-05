@@ -42,7 +42,7 @@ namespace Reddit.Services
             return dbContext.Posts.FirstOrDefault(p => p.ID == postId);
         }
 
-        public void Submit(string title, string url, int userId, int topicId)
+        public void Submit(string title, string url, int userId, int? topicId)
         {
             var newPost = new Post(title, url, userId, topicId);
             dbContext.Posts.Add(newPost);
