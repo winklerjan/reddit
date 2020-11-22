@@ -19,12 +19,12 @@ namespace Reddit.Services
 
         public int GetAllPostsCount() => dbContext.Posts.ToList().Count;
 
-        public List<Post> ReadAllPosts(int begin)
+        public List<Post> ReadAllPosts(int page)
         {
             return dbContext.Posts.Include(p => p.User)
             .OrderByDescending(p => p.Points)
             .ThenByDescending(p => p.Created)
-            .Skip((begin))
+            .Skip((page * PageSize))
             .Take(PageSize)
             .ToList();
         }

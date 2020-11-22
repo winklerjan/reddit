@@ -20,9 +20,9 @@ namespace Reddit.Controllers
 
         [HttpGet("")]
         [HttpGet("index")]
-        public IActionResult Index(int? userId, int begin)
+        public IActionResult Index(int? userId, int page)
         {
-            var posts = postService.ReadAllPosts(begin);
+            var posts = postService.ReadAllPosts(page);
             var postCount = postService.GetAllPostsCount();
             var topics = postService.ReadTopics();
             var model = new IndexViewModel() { Posts = posts, Topics = topics, TotalPostCount = postCount };

@@ -5,7 +5,7 @@ namespace Reddit.Services
 {
     public interface IPostService
     {
-        public List<Post> ReadAllPosts(int begin);
+        public List<Post> ReadAllPosts(int page);
         public List<Post> ReadAllPostsByUserID(int userId);
         public void Submit(string title, string url, int userId, int? topicId);
         public void Vote(int postId, string vote);

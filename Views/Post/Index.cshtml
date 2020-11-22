@@ -88,7 +88,7 @@ else
                 }
                 else
                 {
-                    @Html.ActionLink($" | {page.ToString()} | ", "index", "Post", new { begin = 0 + i }, new { @class = "pages" })
+                    @Html.ActionLink($" | {page.ToString()} | ", "index", "Post", new { page = i }, new { @class = "pages" })
                 }
                 page++;
             }
