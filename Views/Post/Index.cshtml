@@ -80,7 +80,7 @@ else
         <center>
             Page:
 
-            @for (int i = 0; i < Model.TotalPostCount; i += 10)
+            @for (int i = 0; i < Model.TotalPostCount; i += 1)
             {
                 @if (Model.User != null && Model.User.UserLogin == true)
                 {
