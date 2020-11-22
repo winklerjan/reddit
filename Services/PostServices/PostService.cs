@@ -17,14 +17,16 @@ namespace Reddit.Services
 
         public int PageSize { get; set; } = 10;
 
-        public List<Post> ReadAllPosts(int pageNum)
+        public int GetAllPostsCount() => dbContext.Posts.ToList().Count;
+
+        public List<Post> ReadAllPosts(int begin)
         {
             return dbContext.Posts.Include(p => p.User)
-                .OrderByDescending(p => p.Points)
-                .ThenByDescending(p => p.Created)
-                .Skip((pageNum - 1) * PageSize)
-                .Take(PageSize)
-                .ToList();
+            .OrderByDescending(p => p.Points)
+            .ThenByDescending(p => p.Created)
+            .Skip((begin))
+            .Take(PageSize)
+            .ToList();
         }
 
         public List<Topic> ReadTopics()

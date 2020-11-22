@@ -1,6 +1,7 @@
 ﻿
 @{ Layout = "_Layout";
-    ViewBag.Title = "Home"; }
+    ViewBag.Title = "Home";
+    int page = 1; }
 
 @if (Model.User != null && Model.User.UserLogin == true && Model.Topics != null)
 {
@@ -74,14 +75,23 @@ else
             }
         </tbody>
     </table>
-    @if (Model.PageNum > 1)
-    {
-        <a asp-action="index" asp-controller="post" asp-route-pageNum="@Model.PageNum" asp-route-changePage="prev">Prev page</a>
-        <a asp-action="index" asp-controller="post" asp-route-pageNum="@Model.PageNum" asp-route-changePage="next">Next page</a>
-    }
-    else
-    {
-        <a asp-action="index" asp-controller="post" asp-route-pageNum="@Model.PageNum">Next page</a>
-    }
 
+    <p>
+        <center>
+            Page:
+
+            @for (int i = 0; i < Model.TotalPostCount; i += 10)
+            {
+                @if (Model.User != null && Model.User.UserLogin == true)
+                {
+                    @Html.ActionLink($" | {page.ToString()} | ", "index", "Post", new { userId = Model.User.Id, begin = 0 + i }, new { @class = "pages" })
+                }
+                else
+                {
+                    @Html.ActionLink($" | {page.ToString()} | ", "index", "Post", new { begin = 0 + i }, new { @class = "pages" })
+                }
+                page++;
+            }
+        </center>
+    </p>
 }

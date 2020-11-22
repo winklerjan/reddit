@@ -20,23 +20,12 @@ namespace Reddit.Controllers
 
         [HttpGet("")]
         [HttpGet("index")]
-        public IActionResult Index(int? userId, int? pageNum)
+        public IActionResult Index(int? userId, int begin)
         {
-            int pageNumConverted;
-
-            if (pageNum.HasValue)
-            {
-                pageNumConverted = pageNum.Value;
-            }
-            else
-            {
-                pageNumConverted = 1;
-            }
-
-            var posts = postService.ReadAllPosts(pageNumConverted);
-
+            var posts = postService.ReadAllPosts(begin);
+            var postCount = postService.GetAllPostsCount();
             var topics = postService.ReadTopics();
-            var model = new IndexViewModel() { Posts = posts, Topics = topics };
+            var model = new IndexViewModel() { Posts = posts, Topics = topics, TotalPostCount = postCount };
 
             if (userId.HasValue)
             {

@@ -12,7 +12,7 @@ namespace Reddit.ViewModels
 
         public int PageNum { get; set; } = 1;
         public int PageSize { get; set; } = 10;
-        public int TotalRecords { get; set; }
+        public int TotalPostCount { get; set; }
 
         public IndexViewModel()
         {
