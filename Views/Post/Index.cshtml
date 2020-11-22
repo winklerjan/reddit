@@ -1,7 +1,7 @@
 ﻿
 @{ Layout = "_Layout";
     ViewBag.Title = "Home";
-    int page = 1; }
+    int page = 1;}
 
 @if (Model.User != null && Model.User.UserLogin == true && Model.Topics != null)
 {
@@ -80,15 +80,15 @@ else
         <center>
             Page:
 
-            @for (int i = 0; i < Model.TotalPostCount; i += 1)
+            @for (int i = 0; i < Model.TotalPostCount; i += 10)
             {
                 @if (Model.User != null && Model.User.UserLogin == true)
                 {
-                    @Html.ActionLink($" | {page.ToString()} | ", "index", "Post", new { userId = Model.User.Id, begin = 0 + i }, new { @class = "pages" })
+                    @Html.ActionLink($" | {page.ToString()} | ", "index", "Post", new { userId = Model.User.Id, begin = 0 + i / 10}, new { @class = "pages" })
                 }
                 else
                 {
-                    @Html.ActionLink($" | {page.ToString()} | ", "index", "Post", new { page = i }, new { @class = "pages" })
+                    @Html.ActionLink($" | {page.ToString()} | ", "index", "Post", new { page = i / 10}, new { @class = "pages" })
                 }
                 page++;
             }
